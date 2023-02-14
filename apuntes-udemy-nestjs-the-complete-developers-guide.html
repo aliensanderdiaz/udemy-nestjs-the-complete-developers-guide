@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <header class="text-center">
+        <h1></h1>
+    </header>
+    <main class="container">
+        <hr>
+
+        <section class="row">
+            <article class="col">
+                <h2>Sección 1 de n - Scratch</h2>
+                <pre class="prettyprint">
+
+                    > npm i @nestjs/common@7.6.17 @nestjs/core@7.6.17 @nestjs/platform-express@7.6.17 reflect-metadata@0.1.13 typescript@4.3.2
+                </pre>
+
+            </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección 2 de n - Configuracion de Typescript</h2>
+            <pre class="prettyprint">
+                // tsconfig.json
+                {
+                    "compilerOptions": {
+                        "module": "commonjs",
+                        "target": "es2017",
+                        "experimentalDecorators": true,
+                        "emitDecoratorMetadata": true
+                    }
+                }
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección 3 de n - Creando nuestro primer controlador</h2>
+            <pre class="prettyprint">
+                // src/main.ts
+                    
+                import { Controller, Module, Get } from '@nestjs/common';
+
+                @Controller()
+                class AppController {
+                    @Get()
+                    getRootRoute() {
+                        return 'hi there';
+                    }
+                }
+                
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección 4 de n - Iniciando la aplicación</h2>
+            <pre class="prettyprint">
+                    
+                import { Controller, Module, Get } from '@nestjs/common';
+                import { NestFactory } from '@nestjs/core';
+                
+                @Controller()
+                class AppController {
+                    @Get()
+                    getRootRoute() {
+                        return 'hi there';
+                    }
+                }
+                
+                @Module({
+                    controllers: [AppController]
+                })
+                class AppModule {}
+                
+                async function bootstrap() {
+                    const app = await NestFactory.create(AppModule);
+                
+                    await app.listen(3000);
+                }
+                bootstrap();
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                > npx ts-node-dev src/main.ts
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección 5 de n - Separando archivos</h2>
+            <pre class="prettyprint">
+                    
+                import { Controller, Get } from '@nestjs/common';
+
+                @Controller()
+                export class AppController {
+                    @Get()
+                    getRootRoute() {
+                        return {
+                            message: 'Hola Soledad!'
+                        };
+                    }
+                }
+                
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                import { Module } from '@nestjs/common';
+                import { AppController } from './app.controller';
+                
+                
+                @Module({
+                    controllers: [AppController]
+                })
+                export class AppModule {}
+                
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                import { NestFactory } from '@nestjs/core';
+
+                import { AppModule } from './app.module';
+                
+                async function bootstrap() {
+                    const app = await NestFactory.create(AppModule);
+                
+                    await app.listen(3000);
+                }
+                bootstrap();
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección 6 de n - Creando mas rutas</h2>
+            <pre class="prettyprint">
+                    
+                import { Controller, Get } from '@nestjs/common';
+
+                @Controller('/app')
+                export class AppController {
+                    @Get('/products')
+                    getProducts() {
+                        return {
+                            data: ['Product List']
+                        };
+                    }
+                
+                    @Get('/categories')
+                    getCategories() {
+                        return {
+                            data: ['Categories List']
+                        };
+                    }
+                }
+                
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección n de n - Creando proyectos con el CLI</h2>
+            <pre class="prettyprint">
+                    
+                > npm i -g @nestjs/cli
+            </pre>
+            <pre class="prettyprint">
+                    
+                > nest new messages
+            </pre>
+            <pre class="prettyprint">
+                    
+                > npm run start
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección n de n - Usando el CLI para generar archivos</h2>
+            
+            <pre class="prettyprint">
+                    
+                > npm run start:dev
+            </pre>
+
+            <p>Eliminamos todos los archivos relacionados con el app (servicio, controlador, modulo, test)</p>
+
+            <pre class="prettyprint">
+                    
+                > nest generate module messages
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección n de n - Mas del CLI</h2>
+            <pre class="prettyprint">
+                    
+                > nest generate controller messages/messages --flat
+            </pre>
+            <p>Modifico el controlador</p>
+            <pre class="prettyprint">
+                    
+                import { Controller, Get, Post } from '@nestjs/common';
+
+                @Controller('messages')
+                export class MessagesController {
+                
+                    @Get()
+                    listMessages() {
+                
+                    }
+                
+                    @Post()
+                    createMessage() {
+                
+                    }
+                
+                    @Get('/:id')
+                    getMessage() {
+                
+                    }
+                }
+                
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección n de n - Accediendo a los parametros y al cuerpo de una peticion</h2>
+            <pre class="prettyprint">
+                    
+                import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+
+                @Controller('messages')
+                export class MessagesController {
+                
+                    @Get()
+                    listMessages() {
+                
+                    }
+                
+                    @Post()
+                    createMessage(@Body() body: any) {
+                        console.log({ body })
+                    }
+                
+                    @Get('/:id')
+                    getMessage(@Param('id') id: string) {
+                        console.log({ id })
+                    }
+                }
+                
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección n de n - Los pipes y su uso</h2>
+            <pre class="prettyprint">
+                    
+                import { NestFactory } from '@nestjs/core';
+                import { ValidationPipe } from '@nestjs/common';
+                import { MessagesModule } from './messages/messages.module';
+                
+                async function bootstrap() {
+                  const app = await NestFactory.create(MessagesModule);
+                  app.useGlobalPipes(new ValidationPipe())
+                  await app.listen(3000);
+                }
+                bootstrap();
+                
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                > npm install class-validator
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección n de n - dto - reglas de validación</h2>
+            <pre class="prettyprint">
+                    
+                > npm install class-transformer
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                import { IsString } from 'class-validator';
+
+                export class CreateMessageDto {
+                    @IsString()
+                    content: string;
+                }
+                
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                @Post()
+                createMessage(@Body() body: CreateMessageDto) {
+                    console.log({ body })
+                }
+            </pre>
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección n de n - Repositorios y Servicios</h2>
+            <pre class="prettyprint">
+                    
+                import { readFile, writeFile } from 'fs/promises';
+
+                export class MessagesRepository {
+                    async findOne(id: string) {
+                        const contents = await readFile('messages.json', 'utf-8')
+                        const messages = JSON.parse(contents)
+                
+                        return messages[id]
+                    }
+                
+                    async findAll() {
+                        const contents = await readFile('messages.json', 'utf-8')
+                        const messages = JSON.parse(contents)
+                
+                        return messages
+                    }
+                
+                    async create(content: string) {
+                        const contents = await readFile('messages.json', 'utf-8')
+                        const messages = JSON.parse(contents)
+                
+                        const id = Math.floor(Math.random() * 999)
+                
+                        messages[id] = { id, content }
+                
+                        await writeFile('messages.json', JSON.stringify(messages))
+                    }
+                }
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                import { MessagesRepository } from "./messages.repository";
+
+                export class MessagesService {
+                    messagesRepo: MessagesRepository
+                
+                    constructor() {
+                        // No hacer en aplicaciones reales
+                        this.messagesRepo = new MessagesRepository()
+                    }
+                
+                    findOne(id: string) {
+                        return this.messagesRepo.findOne(id)
+                    }
+                
+                    findAll() {
+                        return this.messagesRepo.findAll()
+                    }
+                
+                    create(content: string) {
+                        return this.messagesRepo.create(content)
+                    }
+                }
+                
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+                import { CreateMessageDto } from './dtos/create-message.dto';
+                import { MessagesService } from './messages.service';
+                
+                @Controller('messages')
+                export class MessagesController {
+                
+                    messagesService: MessagesService
+                
+                    constructor() {
+                        // No hacer en aplicaciones reales
+                        // Usar injección de dependencias
+                        this.messagesService = new MessagesService()
+                    }
+                
+                    @Get()
+                    listMessages() {
+                        return this.messagesService.findAll()
+                    }
+                
+                    @Post()
+                    createMessage(@Body() body: CreateMessageDto) {
+                        console.log({ body })
+                        return this.messagesService.create(body.content)
+                    }
+                
+                    @Get('/:id')
+                    getMessage(@Param('id') id: string) {
+                        console.log({ id })
+                        return this.messagesService.findOne(id)
+                    }
+                }
+                
+            </pre>
+
+            <pre class="prettyprint">
+                    
+                {
+                    "1": {
+                        "content": "message 1",
+                        "id": 1
+                    },
+                    "2": {
+                        "content": "message 2",
+                        "id": 2
+                    },
+                    "3": {
+                        "content": "message 3",
+                        "id": 3
+                    },
+                    "324": {
+                        "id": 324,
+                        "content": "Te amo"
+                    }
+                }
+            </pre>
+            
+          </article>
+        </section>
+
+        <hr>
+        
+        <section class="row">
+          <article class="col">
+            <h2>Sección n de n - Utilizando las excepciones</h2>
+            <pre class="prettyprint">
+                    
+                @Get('/:id')
+                async getMessage(@Param('id') id: string) {
+                    const message = await this.messagesService.findOne(id)
+                    console.log({ message })
+                    if (!message) {
+                        throw new NotFoundException('message not found')
+                    }
+            
+                    return message
+                }
+            </pre>
+          </article>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
